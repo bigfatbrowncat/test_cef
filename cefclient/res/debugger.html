@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Dialog Test</title>
+        <script>
+            
+            function update_time() {
+                document.getElementById('time').innerText = new Date().toLocaleString();
+            }
+        
+        function setup() {
+            update_time();
+            setInterval(update_time, 1000);
+        }
+        
+        window.addEventListener('load', setup, false);
+        
+        /************ Messahes **************/
+        function run_debuger(command) {
+            var message = 'Debugger.' + command;
+
+            // Results in a call to the OnQuery method in dialog_test.cpp
+            window.cefQuery({
+                            request: message,
+                            onSuccess: function(response) { },
+                            onFailure: function(error_code, error_message) {}
+                            });
+        }
+        
+        function change_btn_color() {
+            var target = document.getElementById("out");
+            target.innerText = target.innerText + ".";
+        }
+        
+        
+    </script>
+    </head>
+    <body bgcolor="white">
+        <form>
+            Test run of java debugger from JS
+            
+            <br/><input type="button" onclick="run_debuger('Run');" value="Run" id="btn_run"> <span id="out"></span>
+                
+            <br/><input type="button" onclick="run_debuger('Stop');" value="Stop" id="btn_stop">
+                    
+            <br/><input type="button" onclick="change_btn_color();" value="Continue" id="btn_cont">
+
+            <p id="time"></p>
+        </form>
+    </body>
+</html>
